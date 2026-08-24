@@ -1,0 +1,116 @@
+{
+  "maxLaunch": 40,
+  "skills": {
+    "frontend-page-accessibility": {
+      "cohort": "frontends",
+      "discover": "deploy-frontend-content",
+      "lastRunsPath": ".cursor/skills/frontend-page-accessibility/last-runs.json",
+      "incompleteField": "pages",
+      "steps": ["page-accessibility"],
+      "extraTrees": [
+        { "id": "canvas", "path": "apps/canvas", "gitlink": true },
+        { "id": "ondernemings-plan", "path": "apps/ondernemings-plan", "gitlink": true }
+      ]
+    },
+    "frontend-format": {
+      "cohort": "frontends",
+      "discover": "deploy-frontend-content",
+      "lastRunsPath": ".cursor/skills/frontend-format/last-runs.json",
+      "incompleteField": null,
+      "steps": ["format"],
+      "extraTrees": [
+        { "id": "canvas", "path": "apps/canvas", "gitlink": true },
+        { "id": "ondernemings-plan", "path": "apps/ondernemings-plan", "gitlink": true }
+      ]
+    },
+    "frontend-lint": {
+      "cohort": "frontends",
+      "discover": "deploy-frontend-content",
+      "lastRunsPath": ".cursor/skills/frontend-lint/last-runs.json",
+      "incompleteField": "files",
+      "steps": ["lint"],
+      "extraTrees": [
+        { "id": "canvas", "path": "apps/canvas", "gitlink": true },
+        { "id": "ondernemings-plan", "path": "apps/ondernemings-plan", "gitlink": true }
+      ]
+    },
+    "backend-format": {
+      "cohort": "backends",
+      "discover": "deploy-backend",
+      "lastRunsPath": ".cursor/skills/backend-format/last-runs.json",
+      "incompleteField": null,
+      "steps": ["format"]
+    },
+    "backend-lint": {
+      "cohort": "backends",
+      "discover": "deploy-backend",
+      "lastRunsPath": ".cursor/skills/backend-lint/last-runs.json",
+      "incompleteField": "files",
+      "steps": ["lint"]
+    },
+    "platform-format": {
+      "cohort": "platform",
+      "discover": "trees",
+      "lastRunsPath": ".cursor/skills/platform-format/last-runs.json",
+      "incompleteField": null,
+      "steps": ["format"],
+      "trees": [
+        { "id": "cdk", "path": "infra/cdk" },
+        { "id": "email", "path": "packages/Mikepattyn.Email" },
+        { "id": "themes", "path": "packages/themes" },
+        { "id": "db-explorer", "path": "tools/db-explorer/barbershop" },
+        { "id": "e2e", "path": "e2e" },
+        { "id": "scripts", "path": "scripts" },
+        { "id": "authress-flutter", "path": "packages/authress-flutter", "gitlink": true },
+        { "id": "authress-angular", "path": "packages/authress-angular", "gitlink": true }
+      ]
+    },
+    "platform-lint": {
+      "cohort": "platform",
+      "discover": "trees",
+      "lastRunsPath": ".cursor/skills/platform-lint/last-runs.json",
+      "incompleteField": "files",
+      "steps": ["lint"],
+      "trees": [
+        { "id": "cdk", "path": "infra/cdk" },
+        { "id": "email", "path": "packages/Mikepattyn.Email" },
+        { "id": "themes", "path": "packages/themes" },
+        { "id": "db-explorer", "path": "tools/db-explorer/barbershop" },
+        { "id": "e2e", "path": "e2e" },
+        { "id": "scripts", "path": "scripts" },
+        { "id": "authress-flutter", "path": "packages/authress-flutter", "gitlink": true },
+        { "id": "authress-angular", "path": "packages/authress-angular", "gitlink": true }
+      ]
+    },
+    "scripts-to-node": {
+      "cohort": "scripts",
+      "discover": "script-stems",
+      "lastRunsPath": ".cursor/skills/scripts-to-node/last-runs.json",
+      "incompleteField": null,
+      "steps": ["convert"]
+    },
+    "platform-quality": {
+      "kind": "umbrella",
+      "userInvokedOnly": true,
+      "cohort": "all",
+      "waves": [
+        {
+          "step": "page-accessibility",
+          "skills": ["frontend-page-accessibility"]
+        },
+        {
+          "step": "convert",
+          "skills": ["scripts-to-node"]
+        },
+        {
+          "step": "lint",
+          "skills": ["frontend-lint", "backend-lint", "platform-lint"]
+        },
+        {
+          "step": "format",
+          "skills": ["frontend-format", "backend-format", "platform-format"]
+        }
+      ]
+    }
+  }
+}
