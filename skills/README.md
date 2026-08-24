@@ -20,7 +20,7 @@ Why a short shelf that you review beats a pile of installs is taught on the port
 | [frontend-format](frontend-format/) / [frontend-lint](frontend-lint/) | Format or lint every frontend (one worktree agent per app per step, from the current branch; ≤40) |
 | [backend-format](backend-format/) / [backend-lint](backend-lint/) | Format or lint backends from `deploy-*-backend.yml` under `apps/` |
 | [platform-format](platform-format/) / [platform-lint](platform-lint/) | Format or lint CDK, Email, themes, db-explorer, e2e, scripts, Authress gitlinks |
-| [platform-quality](platform-quality/) | User-invoked umbrella only: page-accessibility → scripts-to-node → lint → format on the current branch |
+| [platform-quality](platform-quality/) | User-invoked umbrella only: page-accessibility → scripts-to-node → lint → format on the current branch. Visual map: [platform-quality-fanout.tsx](../platform-quality-fanout.tsx) |
 | [scripts-to-node](scripts-to-node/) | Convert native `.sh`/`.ps1` to Node; shells remain wrappers that start the `.mjs`; tests run Node (one worktree agent per stem, from the current branch; ≤40) |
 | [cloudflare](cloudflare/) | Cloudflare platform work; retrieve current docs, don't guess |
 | [research](research/) | Investigate against primary sources; write the note in-repo |
