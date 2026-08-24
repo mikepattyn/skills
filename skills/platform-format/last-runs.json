@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "apps": {
+    "email": {
+      "path": "packages/Mikepattyn.Email",
+      "lastCommit": "cefe04f70b801c8b2470984729de883fbde08895",
+      "recordedAt": "2026-08-21T22:35:50.825Z"
+    },
+    "themes": {
+      "path": "packages/themes",
+      "lastCommit": "709af801348063309eede3b138cdb689f97356a7",
+      "recordedAt": "2026-08-21T22:38:54.794Z"
+    },
+    "cdk": {
+      "path": "infra/cdk",
+      "lastCommit": "ebe31d2ce24e9ad2411af8f5a6858680b29da214",
+      "recordedAt": "2026-08-21T22:38:55.729Z"
+    },
+    "authress-flutter": {
+      "path": "packages/authress-flutter",
+      "lastCommit": "e0c8e3a644b0d7e9c1092e3499a0c66018c20363",
+      "recordedAt": "2026-08-21T22:39:37.113Z"
+    },
+    "e2e": {
+      "path": "e2e",
+      "lastCommit": "2353f12cbb97cffcb111e65fab11aba85a902909",
+      "recordedAt": "2026-08-22T01:19:42.856Z"
+    },
+    "scripts": {
+      "path": "scripts",
+      "lastCommit": "4e64e0db7c01348937a14cbf5bce69e2f74a73ef",
+      "recordedAt": "2026-08-22T01:31:44.097Z"
+    },
+    "db-explorer": {
+      "path": "tools/db-explorer/barbershop",
+      "lastCommit": "4e64e0db7c01348937a14cbf5bce69e2f74a73ef",
+      "recordedAt": "2026-08-22T01:31:44.097Z"
+    },
+    "authress-angular": {
+      "path": "packages/authress-angular",
+      "lastCommit": "54c5d691cb2ef12d70173d88fb86fcb1ae2b9812",
+      "recordedAt": "2026-08-21T22:41:09.155Z"
+    }
+  }
+}

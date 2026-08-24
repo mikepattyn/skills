@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "apps": {
+    "alienbutnice": {
+      "path": "apps/alienbutnice",
+      "lastCommit": "5bd8996f852770d007c1d189418cd927c05a1679",
+      "recordedAt": "2026-08-22T00:22:53.310Z",
+      "incompletePages": []
+    },
+    "dashboard": {
+      "path": "apps/dashboard",
+      "lastCommit": "9fae204bebc8d6ed4d5ff9b8ae7f4b14623db948",
+      "recordedAt": "2026-08-22T00:31:41.490Z",
+      "incompletePages": []
+    },
+    "theming": {
+      "path": "apps/theming",
+      "lastCommit": "9fae204bebc8d6ed4d5ff9b8ae7f4b14623db948",
+      "recordedAt": "2026-08-22T00:31:41.490Z",
+      "incompletePages": []
+    },
+    "pattynologies": {
+      "path": "apps/pattynologies",
+      "lastCommit": "9fae204bebc8d6ed4d5ff9b8ae7f4b14623db948",
+      "recordedAt": "2026-08-22T00:31:41.490Z",
+      "incompletePages": []
+    },
+    "viewports": {
+      "path": "apps/viewports",
+      "lastCommit": "9fae204bebc8d6ed4d5ff9b8ae7f4b14623db948",
+      "recordedAt": "2026-08-22T00:31:41.490Z",
+      "incompletePages": []
+    },
+    "mikepattyn": {
+      "path": "apps/mikepattyn",
+      "lastCommit": "9fae204bebc8d6ed4d5ff9b8ae7f4b14623db948",
+      "recordedAt": "2026-08-22T00:31:41.490Z",
+      "incompletePages": []
+    },
+    "commerce": {
+      "path": "apps/commerce/frontend",
+      "lastCommit": "9fae204bebc8d6ed4d5ff9b8ae7f4b14623db948",
+      "recordedAt": "2026-08-22T00:31:41.490Z",
+      "incompletePages": []
+    },
+    "lumen": {
+      "path": "apps/prompt-engineering",
+      "lastCommit": "9fae204bebc8d6ed4d5ff9b8ae7f4b14623db948",
+      "recordedAt": "2026-08-22T00:31:42.473Z",
+      "incompletePages": [
+        "home",
+        "path",
+        "lesson",
+        "garden",
+        "gate"
+      ]
+    },
+    "fish": {
+      "path": "apps/gofish/mobile",
+      "lastCommit": "9fae204bebc8d6ed4d5ff9b8ae7f4b14623db948",
+      "recordedAt": "2026-08-22T00:31:41.490Z",
+      "incompletePages": []
+    },
+    "kapsalon": {
+      "path": "apps/kapsalon/apps/web",
+      "lastCommit": "9fae204bebc8d6ed4d5ff9b8ae7f4b14623db948",
+      "recordedAt": "2026-08-22T00:31:41.944Z",
+      "incompletePages": [
+        "CustomerDetailsPage",
+        "BookingConfirmationPage",
+        "StaffLoginPage"
+      ]
+    }
+  }
+}

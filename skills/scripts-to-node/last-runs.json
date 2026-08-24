@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "apps": {
+    "apps-alienbutnice-apps-Staying-Grounded-scripts-clean": {
+      "path": "apps/alienbutnice/apps/Staying-Grounded/scripts/clean",
+      "lastCommit": "e04dcd04a679f18caba58956267ca225ffe1b3a0",
+      "recordedAt": "2026-08-22T00:48:03.456Z"
+    },
+    "scripts-sync-fish-backend": {
+      "path": "scripts/sync-fish-backend",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "scripts-smoke-fish-api": {
+      "path": "scripts/smoke-fish-api",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "apps-alienbutnice-apps-Staying-Grounded-k8s-scripts-verify-deploy": {
+      "path": "apps/alienbutnice/apps/Staying-Grounded/k8s/scripts/verify-deploy",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "scripts-build-fish-web": {
+      "path": "scripts/build-fish-web",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "apps-kapsalon-scripts-seed-dev-services": {
+      "path": "apps/kapsalon/scripts/seed-dev-services",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "apps-alienbutnice-apps-Staying-Grounded-scripts-coverage-report": {
+      "path": "apps/alienbutnice/apps/Staying-Grounded/scripts/coverage-report",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "scripts-copy-theme-package": {
+      "path": "scripts/copy-theme-package",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "scripts-commerce-mollie-smoke": {
+      "path": "scripts/commerce-mollie-smoke",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "apps-kapsalon-scripts-build-lambda": {
+      "path": "apps/kapsalon/scripts/build-lambda",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "scripts-build-mikepattyn-lambda": {
+      "path": "scripts/build-mikepattyn-lambda",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "apps-alienbutnice-apps-Staying-Grounded-k8s-scripts-encrypt-secrets": {
+      "path": "apps/alienbutnice/apps/Staying-Grounded/k8s/scripts/encrypt-secrets",
+      "lastCommit": "68e8d5dc0784ef7745dc1cb92c1ef8d792a2936e",
+      "recordedAt": "2026-08-22T00:49:45.657Z"
+    },
+    "scripts-sync-fish-frontend": {
+      "path": "scripts/sync-fish-frontend",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-build-fish-lambda": {
+      "path": "scripts/build-fish-lambda",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-sync-angular-frontend": {
+      "path": "scripts/sync-angular-frontend",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "apps-alienbutnice-apps-Staying-Grounded-k8s-scripts-bootstrap-flux-do": {
+      "path": "apps/alienbutnice/apps/Staying-Grounded/k8s/scripts/bootstrap-flux-do",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "apps-kapsalon-scripts-test-backend": {
+      "path": "apps/kapsalon/scripts/test-backend",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "apps-alienbutnice-apps-Staying-Grounded-docker-coverage-report-entrypoint": {
+      "path": "apps/alienbutnice/apps/Staying-Grounded/docker/coverage-report/entrypoint",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-sync-kapsalon-backend": {
+      "path": "scripts/sync-kapsalon-backend",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-build-lambda": {
+      "path": "scripts/build-lambda",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-setup-mikepattyn-turnstile": {
+      "path": "scripts/setup-mikepattyn-turnstile",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-cdk-check-config": {
+      "path": "scripts/cdk-check-config",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-sync-brand-frontend": {
+      "path": "scripts/sync-brand-frontend",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-build-commerce-lambda": {
+      "path": "scripts/build-commerce-lambda",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-test-cdk": {
+      "path": "scripts/test-cdk",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-sync-kapsalon-frontend": {
+      "path": "scripts/sync-kapsalon-frontend",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "apps-kapsalon-scripts-check-per-file-coverage": {
+      "path": "apps/kapsalon/scripts/check-per-file-coverage",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "apps-alienbutnice-apps-Staying-Grounded-k8s-scripts-setup-docr-pull-secret": {
+      "path": "apps/alienbutnice/apps/Staying-Grounded/k8s/scripts/setup-docr-pull-secret",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "apps-kapsalon-scripts-seed-tenant-owner": {
+      "path": "apps/kapsalon/scripts/seed-tenant-owner",
+      "lastCommit": "b004e2d0f534f489fab99e42843f15fc0631bd97",
+      "recordedAt": "2026-08-22T00:51:53.933Z"
+    },
+    "scripts-sync-static-site": {
+      "path": "scripts/sync-static-site",
+      "lastCommit": "9a8fd94e8d9aaf0c54be466edc7adad03502c9ca",
+      "recordedAt": "2026-08-22T00:52:24.377Z"
+    },
+    "apps-gofish-scripts-run-android": {
+      "path": "apps/gofish/scripts/run-android",
+      "lastCommit": "60f695d5d4fb987d9ff26a43380a8f210e84446c",
+      "recordedAt": "2026-08-22T00:53:22.735Z"
+    }
+  }
+}

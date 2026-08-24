@@ -1,0 +1,79 @@
+# Template: Production-only content / brand frontend deploy
+# Agent: copy into .github/workflows/, replace every __PLACEHOLDER__, strip these comments.
+# Live examples: deploy-mikepattyn-content.yml, deploy-alienbutnice-content.yml, deploy-lumen-content.yml
+
+name: Deploy __DISPLAY_NAME__ content
+
+on:
+  push:
+    branches:
+      - __DEFAULT_BRANCH__
+    paths:
+      - '__PATH_FILTER__'
+      - '.github/workflows/deploy-__SLUG__-content.yml'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || 'eu-central-1' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - name: __CHECKOUT_STEP_NAME__
+        uses: actions/checkout@v4
+        # If the job needs Authress or Mapbox: token SUBMODULE_TOKEN, submodules: true, fetch-depth 0
+        # If not: omit with: entirely and name the step "Checkout"
+
+      # Omit this step entirely for static sync-only apps (see Lumen).
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+          cache: npm
+          cache-dependency-path: __LOCKFILE_PATH__
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Omit for static sync-only; otherwise build in __APP_WORKDIR__.
+      - name: Build site
+        working-directory: __APP_WORKDIR__
+        run: |
+          __BUILD_COMMANDS__
+
+      - name: Publish to S3 and invalidate CloudFront
+        run: |
+          SOURCE="$GITHUB_WORKSPACE/__ARTIFACT_PATH__"
+          PREFIX="/__SSM_APP__/Production/Frontend"
+          BUCKET=$(aws ssm get-parameter --name "${PREFIX}/BucketName" --query 'Parameter.Value' --output text)
+          DISTRIBUTION_ID=$(aws ssm get-parameter --name "${PREFIX}/DistributionId" --query 'Parameter.Value' --output text)
+          echo "Syncing ${SOURCE} → s3://${BUCKET}/"
+          aws s3 sync "$SOURCE" "s3://${BUCKET}/" --delete
+          # Static trees: add excludes, e.g.
+          #   --exclude ".git/*" --exclude ".cursor/*"
+          echo "Invalidating CloudFront distribution ${DISTRIBUTION_ID}"
+          aws cloudfront create-invalidation \
+            --distribution-id "$DISTRIBUTION_ID" \
+            --paths "/*"
+          echo "Done: __DISPLAY_NAME__ Production"
+
+# Placeholder guide:
+#   __DISPLAY_NAME__       Lumen / Mikepattyn / AlienButNice
+#   __SLUG__               lumen / mikepattyn / alienbutnice
+#   __DEFAULT_BRANCH__     main
+#   __PATH_FILTER__        apps/prompt-engineering/**
+#   __CHECKOUT_STEP_NAME__ Checkout  OR  Checkout repository and private submodules
+#   __LOCKFILE_PATH__      apps/.../package-lock.json (omit Setup Node + Build for static)
+#   __APP_WORKDIR__        apps/...
+#   __BUILD_COMMANDS__     npm ci && npm run build
+#   __ARTIFACT_PATH__      apps/.../dist  OR  apps/... for static source
+#   __SSM_APP__            Lumen / Mikepattyn / AlienButNice

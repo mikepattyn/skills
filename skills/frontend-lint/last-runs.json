@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "apps": {
+    "theming": {
+      "path": "apps/theming",
+      "lastCommit": "91340ea7b2bcae2d2194e15848b1dbbb4071e1a4",
+      "recordedAt": "2026-08-22T01:08:32.751Z",
+      "incompleteFiles": []
+    },
+    "commerce": {
+      "path": "apps/commerce/frontend",
+      "lastCommit": "846d551dd96ee915b8a9bea795a179e2cbac776f",
+      "recordedAt": "2026-08-22T01:04:50.447Z",
+      "incompleteFiles": []
+    },
+    "lumen": {
+      "path": "apps/prompt-engineering",
+      "lastCommit": "dfcd9ce25a6f62698721219293eb6bde54545209",
+      "recordedAt": "2026-08-22T01:07:55.406Z",
+      "incompleteFiles": []
+    },
+    "dashboard": {
+      "path": "apps/dashboard",
+      "lastCommit": "e4ed74094fec96d095b5611a46397262dee347e8",
+      "recordedAt": "2026-08-22T01:07:26.291Z",
+      "incompleteFiles": []
+    },
+    "ondernemings-plan": {
+      "path": "apps/ondernemings-plan",
+      "lastCommit": "292b48cb9b23360da2e2d020b1ffeaa710d702eb",
+      "recordedAt": "2026-08-21T23:07:01.010Z",
+      "incompleteFiles": []
+    },
+    "mikepattyn": {
+      "path": "apps/mikepattyn",
+      "lastCommit": "c3c22d5baeca8b9820cafbefe870441a6583ea49",
+      "recordedAt": "2026-08-22T01:01:58.878Z",
+      "incompleteFiles": []
+    },
+    "pattynologies": {
+      "path": "apps/pattynologies",
+      "lastCommit": "846d551dd96ee915b8a9bea795a179e2cbac776f",
+      "recordedAt": "2026-08-22T01:04:50.447Z",
+      "incompleteFiles": []
+    },
+    "viewports": {
+      "path": "apps/viewports",
+      "lastCommit": "ca387dd2b0d6e4d586698eb96f0fc0cfe15274cf",
+      "recordedAt": "2026-08-22T01:09:46.569Z",
+      "incompleteFiles": []
+    },
+    "fish": {
+      "path": "apps/gofish/mobile",
+      "lastCommit": "0f4144774eb389220170cfb5d2ab30b6610be1f4",
+      "recordedAt": "2026-08-22T01:06:04.855Z",
+      "incompleteFiles": []
+    },
+    "alienbutnice": {
+      "path": "apps/alienbutnice",
+      "lastCommit": "846d551dd96ee915b8a9bea795a179e2cbac776f",
+      "recordedAt": "2026-08-22T01:04:50.447Z",
+      "incompleteFiles": []
+    },
+    "kapsalon": {
+      "path": "apps/kapsalon/apps/web",
+      "lastCommit": "2cf7183dd213071ceb0c6ccaa89bebf99d2559d8",
+      "recordedAt": "2026-08-22T01:06:43.138Z",
+      "incompleteFiles": []
+    }
+  }
+}

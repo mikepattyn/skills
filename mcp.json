@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "cloudflare": {
+      "url": "https://mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-docs": {
+      "url": "https://docs.mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-bindings": {
+      "url": "https://bindings.mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-builds": {
+      "url": "https://builds.mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-observability": {
+      "url": "https://observability.mcp.cloudflare.com/mcp"
+    },
+    "aws-mcp": {
+      "url": "https://aws-mcp.us-east-1.api.aws/mcp?oauth=initialize"
+    },
+    "drawio": {
+      "url": "https://mcp.draw.io/mcp"
+    }
+  }
+}

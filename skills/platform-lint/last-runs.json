@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "apps": {
+    "themes": {
+      "path": "packages/themes",
+      "lastCommit": "abb383524240d81cbd03ec37ee9f60ce4cab2e8a",
+      "recordedAt": "2026-08-21T23:01:59.826Z",
+      "incompleteFiles": []
+    },
+    "email": {
+      "path": "packages/Mikepattyn.Email",
+      "lastCommit": "713112cbf5b73c3c44cf648e8bda2b7867c3f08c",
+      "recordedAt": "2026-08-21T23:06:59.719Z",
+      "incompleteFiles": []
+    },
+    "authress-angular": {
+      "path": "packages/authress-angular",
+      "lastCommit": "e714205f4ac80d639f871d5d77b0a7e6bd867100",
+      "recordedAt": "2026-08-21T23:07:01.858Z",
+      "incompleteFiles": []
+    },
+    "scripts": {
+      "path": "scripts",
+      "lastCommit": "0f4144774eb389220170cfb5d2ab30b6610be1f4",
+      "recordedAt": "2026-08-22T01:06:04.361Z",
+      "incompleteFiles": []
+    },
+    "cdk": {
+      "path": "infra/cdk",
+      "lastCommit": "1becdac9e29bf883e699498ce0f0bcc335023c86",
+      "recordedAt": "2026-08-21T23:07:44.932Z",
+      "incompleteFiles": []
+    },
+    "authress-flutter": {
+      "path": "packages/authress-flutter",
+      "lastCommit": "21585333cba17fead6542917807684dba54e2585",
+      "recordedAt": "2026-08-21T23:07:45.595Z",
+      "incompleteFiles": []
+    },
+    "db-explorer": {
+      "path": "tools/db-explorer/barbershop",
+      "lastCommit": "b6b136cca454ef2d215124b75cf9026fb587730c",
+      "recordedAt": "2026-08-21T23:09:38.531Z",
+      "incompleteFiles": []
+    },
+    "e2e": {
+      "path": "e2e",
+      "lastCommit": "77bbef4c697d861fff2bcf831d4f8ca3aae7b836",
+      "recordedAt": "2026-08-22T01:02:55.268Z",
+      "incompleteFiles": []
+    }
+  }
+}

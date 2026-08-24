@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "apps": {
+    "fish": {
+      "path": "apps/gofish/mobile",
+      "lastCommit": "23d78a8d0b5da7f5dcb272ac74dcabfb3018bc38",
+      "recordedAt": "2026-08-22T01:31:12.961Z"
+    },
+    "commerce": {
+      "path": "apps/commerce/frontend",
+      "lastCommit": "2353f12cbb97cffcb111e65fab11aba85a902909",
+      "recordedAt": "2026-08-22T01:19:42.139Z"
+    },
+    "lumen": {
+      "path": "apps/prompt-engineering",
+      "lastCommit": "23d78a8d0b5da7f5dcb272ac74dcabfb3018bc38",
+      "recordedAt": "2026-08-22T01:31:12.961Z"
+    },
+    "theming": {
+      "path": "apps/theming",
+      "lastCommit": "af9f82a5a6305ad8786beab4f93517fe660f3a52",
+      "recordedAt": "2026-08-22T01:43:40.233Z"
+    },
+    "alienbutnice": {
+      "path": "apps/alienbutnice",
+      "lastCommit": "2353f12cbb97cffcb111e65fab11aba85a902909",
+      "recordedAt": "2026-08-22T01:19:42.139Z"
+    },
+    "pattynologies": {
+      "path": "apps/pattynologies",
+      "lastCommit": "4e64e0db7c01348937a14cbf5bce69e2f74a73ef",
+      "recordedAt": "2026-08-22T01:31:43.620Z"
+    },
+    "dashboard": {
+      "path": "apps/dashboard",
+      "lastCommit": "23d78a8d0b5da7f5dcb272ac74dcabfb3018bc38",
+      "recordedAt": "2026-08-22T01:31:12.961Z"
+    },
+    "mikepattyn": {
+      "path": "apps/mikepattyn",
+      "lastCommit": "4e64e0db7c01348937a14cbf5bce69e2f74a73ef",
+      "recordedAt": "2026-08-22T01:31:43.620Z"
+    },
+    "ondernemings-plan": {
+      "path": "apps/ondernemings-plan",
+      "lastCommit": "d5928a69a013abd4d389eb1b75d62bf107f25428",
+      "recordedAt": "2026-08-21T22:39:36.698Z"
+    },
+    "kapsalon": {
+      "path": "apps/kapsalon/apps/web",
+      "lastCommit": "4e64e0db7c01348937a14cbf5bce69e2f74a73ef",
+      "recordedAt": "2026-08-22T01:31:43.620Z"
+    },
+    "canvas": {
+      "path": "apps/canvas",
+      "lastCommit": "a826c315b650c39d3ac05f35a171ef7e6f30cd0c",
+      "recordedAt": "2026-08-21T22:41:09.614Z"
+    },
+    "viewports": {
+      "path": "apps/viewports",
+      "lastCommit": "23d78a8d0b5da7f5dcb272ac74dcabfb3018bc38",
+      "recordedAt": "2026-08-22T01:31:12.961Z"
+    }
+  }
+}

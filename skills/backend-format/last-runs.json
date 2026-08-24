@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "apps": {
+    "commerce": {
+      "path": "apps/commerce/backend",
+      "lastCommit": "cefe04f70b801c8b2470984729de883fbde08895",
+      "recordedAt": "2026-08-21T22:35:51.130Z"
+    },
+    "kapsalon": {
+      "path": "apps/kapsalon/backend",
+      "lastCommit": "ebe31d2ce24e9ad2411af8f5a6858680b29da214",
+      "recordedAt": "2026-08-21T22:38:55.949Z"
+    },
+    "mikepattyn": {
+      "path": "apps/mikepattyn/backend",
+      "lastCommit": "b2dafb913db9d906a414a194adc3ac9ce45dd3b2",
+      "recordedAt": "2026-08-21T22:47:14.920Z"
+    },
+    "fish": {
+      "path": "apps/gofish/backend",
+      "lastCommit": "93cdf1ea9de7b24109c440cb501d95c4da30d924",
+      "recordedAt": "2026-08-22T01:18:41.897Z"
+    }
+  }
+}
