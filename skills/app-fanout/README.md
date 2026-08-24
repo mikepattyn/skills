@@ -8,7 +8,7 @@ Shared engine and child-agent assets for the platform orchestrators:
 - `scripts-to-node` (script stems, not app trees)
 - `platform-quality` (umbrella; user-invoked only)
 
-Planning and last-run recording live in [`scripts/app-fanout.mjs`](../../../scripts/app-fanout.mjs) and [`scripts/app-fanout.config.json`](../../../scripts/app-fanout.config.json). Each atomic skill has its own `SKILL.md`, `agent-prompt.md`, and `last-runs.json`. The executing parent commits that `last-runs.json` when `record` adds an id or changes `recordedAt` / `lastCommit` — children never touch the file.
+Planning and last-run recording live in [`scripts/app-fanout.mjs`](../../scripts/app-fanout.mjs) and [`scripts/app-fanout.config.json`](../../scripts/app-fanout.config.json). Each atomic skill has its own `SKILL.md`, `agent-prompt.md`, and `last-runs.json`. The executing parent commits that `last-runs.json` when `record` adds an id or changes `recordedAt` / `lastCommit` — children never touch the file.
 
 Children close the worktree they were placed in with `node scripts/app-fanout.mjs close --here` before they return (branch kept for merge). The parent always runs `close --skill <id> <tree>` after merge or failure so leftovers do not stay open, and `close --skill <id> --base-worktree` if it created `.worktrees/<baseBranch>` for merges.
 
@@ -18,7 +18,7 @@ This folder is **not** a user-facing skill. Do not trigger it. Do not invoke `pl
 
 ## Add an atomic workflow
 
-1. Add a key under `skills` in `scripts/app-fanout.config.json`: `cohort`, `discover` (`deploy-frontend-content`, `deploy-backend`, `trees`, or `script-stems`), `lastRunsPath`, `steps` (one step), and `incompleteField` (`pages`, `files`, or `null`). For `trees`, include the path list. Frontend skills may add `extraTrees` (Canvas, Ondernemingsplan). Mark gitlinks `{ "gitlink": true }`. `script-stems` discovers tracked `.sh`/`.ps1` families via [`scripts/script-stems.mjs`](../../../scripts/script-stems.mjs).
+1. Add a key under `skills` in `scripts/app-fanout.config.json`: `cohort`, `discover` (`deploy-frontend-content`, `deploy-backend`, `trees`, or `script-stems`), `lastRunsPath`, `steps` (one step), and `incompleteField` (`pages`, `files`, or `null`). For `trees`, include the path list. Frontend skills may add `extraTrees` (Canvas, Ondernemingsplan). Mark gitlinks `{ "gitlink": true }`. `script-stems` discovers tracked `.sh`/`.ps1` families via [`scripts/script-stems.mjs`](../../scripts/script-stems.mjs).
 2. Add `.cursor/skills/<id>/` with `SKILL.md`, `agent-prompt.md`, and `last-runs.json`.
 3. If it belongs in the umbrella, add it to the matching `platform-quality` wave.
 4. List the skill in `AGENTS.md` and the shelf README.

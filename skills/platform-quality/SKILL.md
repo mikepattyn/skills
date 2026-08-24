@@ -16,7 +16,7 @@ Reusable **umbrella orchestrator**. This skill does **not** format, lint, conver
 
 **User-invoked only.** Start this skill only when the current user message called `/platform-quality` (or this skill by name). Atomic orchestrators must never launch it.
 
-Planning uses [`scripts/app-fanout.mjs`](../../../scripts/app-fanout.mjs) (`--skill platform-quality`). The script reads the current branch and puts it on every `launchNow` row as `baseBranch`. Pass that through to every child as `{{BASE_BRANCH}}`. Each nested skill diffs that tree (or stem) from its last recorded commit to the current tip. Empty `launchNow` means no diff — skip the wave.
+Planning uses [`scripts/app-fanout.mjs`](../../scripts/app-fanout.mjs) (`--skill platform-quality`). The script reads the current branch and puts it on every `launchNow` row as `baseBranch`. Pass that through to every child as `{{BASE_BRANCH}}`. Each nested skill diffs that tree (or stem) from its last recorded commit to the current tip. Empty `launchNow` means no diff — skip the wave.
 
 ## Progress
 

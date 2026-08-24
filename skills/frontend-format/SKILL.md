@@ -16,7 +16,7 @@ Reusable **orchestrator**. This skill does **not** format a tree itself. It disc
 
 New frontends enroll automatically via `add-frontend-deploy-workflow`. Canvas and Ondernemingsplan enroll as `extraTrees` gitlinks (clone the pinned SHA; do not edit the umbrella checkout).
 
-Planning uses [`scripts/app-fanout.mjs`](../../../scripts/app-fanout.mjs) (`--skill frontend-format`).
+Planning uses [`scripts/app-fanout.mjs`](../../scripts/app-fanout.mjs) (`--skill frontend-format`).
 
 Shared assets: [app-fanout](../app-fanout/README.md).
 

@@ -14,7 +14,7 @@ description: >-
 
 Reusable **orchestrator**. Same discovery as `backend-format`. Each child runs **lint only**.
 
-Planning uses [`scripts/app-fanout.mjs`](../../../scripts/app-fanout.mjs) (`--skill backend-lint`).
+Planning uses [`scripts/app-fanout.mjs`](../../scripts/app-fanout.mjs) (`--skill backend-lint`).
 
 Shared assets: [app-fanout](../app-fanout/README.md).
 

@@ -18,7 +18,7 @@ Reusable **orchestrator**. This skill does **not** convert a stem itself. It dis
 
 Going forward, new scripts are Node first; `.sh` and `.ps1` are only wrappers (see [templates](templates/wrapper.sh)). Do not mix format, lint, or page-accessibility into this launch. `/platform-quality` runs this as its convert wave (after page-accessibility, before lint and format).
 
-Planning uses [`scripts/app-fanout.mjs`](../../../scripts/app-fanout.mjs) (`--skill scripts-to-node`). Discovery lives in [`scripts/script-stems.mjs`](../../../scripts/script-stems.mjs).
+Planning uses [`scripts/app-fanout.mjs`](../../scripts/app-fanout.mjs) (`--skill scripts-to-node`). Discovery lives in [`scripts/script-stems.mjs`](../../scripts/script-stems.mjs).
 
 Shared assets: [app-fanout](../app-fanout/README.md). Conversion how-to: [references/convert.md](references/convert.md).
 

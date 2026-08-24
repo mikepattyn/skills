@@ -12,7 +12,7 @@ description: >-
 
 # Platform lint
 
-Reusable **orchestrator**. Same tree list as `platform-format` in [`scripts/app-fanout.config.json`](../../../scripts/app-fanout.config.json).
+Reusable **orchestrator**. Same tree list as `platform-format` in [`scripts/app-fanout.config.json`](../../scripts/app-fanout.config.json).
 
 Shared assets: [app-fanout](../app-fanout/README.md).
 

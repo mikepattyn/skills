@@ -15,7 +15,7 @@ Reusable **orchestrator**. Discovers backends from `.github/workflows/deploy-*-b
 
 Do **not** maintain a backend list here — a new `deploy-<slug>-backend.yml` with an `apps/` path enrolls the next tree.
 
-Planning uses [`scripts/app-fanout.mjs`](../../../scripts/app-fanout.mjs) (`--skill backend-format`).
+Planning uses [`scripts/app-fanout.mjs`](../../scripts/app-fanout.mjs) (`--skill backend-format`).
 
 Shared assets: [app-fanout](../app-fanout/README.md).
 

@@ -15,7 +15,7 @@ description: >-
 
 Reusable **orchestrator**. Discovers the same frontend set as `frontend-format`. Each child runs **lint only**.
 
-Planning uses [`scripts/app-fanout.mjs`](../../../scripts/app-fanout.mjs) (`--skill frontend-lint`).
+Planning uses [`scripts/app-fanout.mjs`](../../scripts/app-fanout.mjs) (`--skill frontend-lint`).
 
 Shared assets: [app-fanout](../app-fanout/README.md).
 

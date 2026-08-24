@@ -12,7 +12,7 @@ description: >-
 
 # Platform format
 
-Reusable **orchestrator**. Trees are the explicit list in [`scripts/app-fanout.config.json`](../../../scripts/app-fanout.config.json) (`platform-format.trees`). That is not a parse of CONTEXT-MAP. Dashboard's backend lambda lives under `infra/cdk` and is owned by the `cdk` tree.
+Reusable **orchestrator**. Trees are the explicit list in [`scripts/app-fanout.config.json`](../../scripts/app-fanout.config.json) (`platform-format.trees`). That is not a parse of CONTEXT-MAP. Dashboard's backend lambda lives under `infra/cdk` and is owned by the `cdk` tree.
 
 Authress Flutter/Angular enroll as gitlinks (clone the pinned SHA). Mapbox and Flyingdarts stay out.
 
