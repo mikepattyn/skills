@@ -1,0 +1,59 @@
+name: Deploy AlienButNice content
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'apps/alienbutnice/**'
+      - '.github/workflows/deploy-alienbutnice-content.yml'
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || 'eu-central-1' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Production
+    defaults:
+      run:
+        working-directory: apps/alienbutnice
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Build site
+        run: |
+          npm ci
+          npm run build
+
+      - name: Publish to S3 and invalidate CloudFront
+        run: |
+          SOURCE="$GITHUB_WORKSPACE/apps/alienbutnice/dist"
+          PREFIX="/AlienButNice/Production/Frontend"
+          BUCKET=$(aws ssm get-parameter --name "${PREFIX}/BucketName" --query 'Parameter.Value' --output text)
+          DISTRIBUTION_ID=$(aws ssm get-parameter --name "${PREFIX}/DistributionId" --query 'Parameter.Value' --output text)
+          echo "Syncing ${SOURCE} → s3://${BUCKET}/"
+          aws s3 sync "$SOURCE" "s3://${BUCKET}/" --delete
+          echo "Invalidating CloudFront distribution ${DISTRIBUTION_ID}"
+          aws cloudfront create-invalidation \
+            --distribution-id "$DISTRIBUTION_ID" \
+            --paths "/*"
+          echo "Done: AlienButNice Production"

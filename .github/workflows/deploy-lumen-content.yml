@@ -1,0 +1,108 @@
+name: Deploy Lumen content
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'apps/prompt-engineering/**'
+      - 'apps/test-setup.ts'
+      - 'apps/package.json'
+      - 'apps/package-lock.json'
+      - 'apps/angular.json'
+      - 'apps/tsconfig.json'
+      - 'apps/scripts/lumen-alias.mjs'
+      - '.github/workflows/deploy-lumen-content.yml'
+  workflow_dispatch:
+    inputs:
+      artifact:
+        description: 'angular (default), preview prefix, or legacy source-tree rollback'
+        required: false
+        default: angular
+        type: choice
+        options:
+          - angular
+          - preview
+          - legacy
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || 'eu-central-1' }}
+  ARTIFACT: ${{ github.event.inputs.artifact || 'angular' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Node 24 LTS
+        if: env.ARTIFACT != 'legacy'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+          cache: npm
+          cache-dependency-path: apps/package-lock.json
+
+      - name: Unit test Angular Lumen
+        if: env.ARTIFACT != 'legacy'
+        working-directory: apps
+        env:
+          NODE_OPTIONS: --localstorage-file=${{ runner.temp }}/node-localstorage
+        run: |
+          npm ci
+          npm run test:lumen
+
+      - name: Build Angular Lumen
+        if: env.ARTIFACT != 'legacy'
+        working-directory: apps
+        run: |
+          npm run build:lumen
+          node scripts/write-artifact-manifest.mjs dist/lumen/browser "$GITHUB_SHA"
+
+      - name: Upload SHA artifact
+        if: env.ARTIFACT != 'legacy'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lumen-${{ github.sha }}
+          path: apps/dist/lumen/browser
+          retention-days: 30
+
+      - name: Publish Angular to live origin
+        if: env.ARTIFACT == 'angular'
+        run: bash scripts/sync-angular-frontend.sh Lumen Production "$GITHUB_WORKSPACE/apps/dist/lumen/browser"
+
+      - name: Publish Angular to preview/ prefix
+        if: env.ARTIFACT == 'preview'
+        run: |
+          PREFIX="/Lumen/Production/Frontend"
+          BUCKET=$(aws ssm get-parameter --name "${PREFIX}/BucketName" --query 'Parameter.Value' --output text)
+          DISTRIBUTION_ID=$(aws ssm get-parameter --name "${PREFIX}/DistributionId" --query 'Parameter.Value' --output text)
+          aws s3 sync "$GITHUB_WORKSPACE/apps/dist/lumen/browser" "s3://${BUCKET}/preview/" --delete --dryrun
+          aws s3 sync "$GITHUB_WORKSPACE/apps/dist/lumen/browser" "s3://${BUCKET}/preview/" --delete
+          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/preview/*"
+
+      - name: Publish legacy source
+        if: env.ARTIFACT == 'legacy'
+        run: |
+          SOURCE="$GITHUB_WORKSPACE/apps/prompt-engineering"
+          PREFIX="/Lumen/Production/Frontend"
+          BUCKET=$(aws ssm get-parameter --name "${PREFIX}/BucketName" --query 'Parameter.Value' --output text)
+          DISTRIBUTION_ID=$(aws ssm get-parameter --name "${PREFIX}/DistributionId" --query 'Parameter.Value' --output text)
+          aws s3 sync "$SOURCE" "s3://${BUCKET}/" --delete \
+            --exclude ".git/*" \
+            --exclude ".cursor/*" \
+            --exclude "src/*" \
+            --exclude "tsconfig*.json"
+          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"

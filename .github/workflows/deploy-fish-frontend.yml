@@ -1,0 +1,120 @@
+name: Deploy Fish frontend
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'apps/gofish/mobile/**'
+      - '.github/workflows/deploy-fish-frontend.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Deployment environment
+        required: true
+        default: Development
+        type: choice
+        options:
+          - Development
+          - Staging
+          - Production
+  workflow_call:
+    inputs:
+      environment:
+        description: Deployment environment
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || 'eu-central-1' }}
+
+jobs:
+  resolve-targets:
+    runs-on: ubuntu-latest
+    outputs:
+      environments: ${{ steps.resolve.outputs.environments }}
+    steps:
+      - name: Resolve deployment environments
+        id: resolve
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "${{ github.event_name }}" = "workflow_call" ]; then
+            ENVIRONMENTS='["${{ inputs.environment }}"]'
+          elif [ "${{ vars.DEPLOY_FISH_FRONTEND_ALL_ENVS }}" = "true" ]; then
+            ENVIRONMENTS='["Development","Staging","Production"]'
+          else
+            ENVIRONMENTS='["Development","Production"]'
+          fi
+          echo "environments=${ENVIRONMENTS}" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: resolve-targets
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: ${{ fromJson(needs.resolve-targets.outputs.environments) }}
+    environment: ${{ matrix.environment }}
+    steps:
+      - name: Checkout repository and private submodules
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+          cache-key: flutter-${{ runner.os }}-${{ hashFiles('apps/gofish/mobile/pubspec.lock') }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Build Flutter web
+        working-directory: apps/gofish/mobile
+        env:
+          AUTHRESS_APPLICATION_ID: ${{ secrets.AUTHRESS_APPLICATION_ID }}
+          MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
+          DEPLOY_ENV: ${{ matrix.environment }}
+        run: |
+          case "$DEPLOY_ENV" in
+            Development) APP_HOST="gofish-dev.mikepattyn.nl" ;;
+            Staging)     APP_HOST="gofish-acc.mikepattyn.nl" ;;
+            Production)  APP_HOST="gofish.mikepattyn.nl" ;;
+            *) echo "Unknown environment: $DEPLOY_ENV" >&2; exit 1 ;;
+          esac
+          if [ -z "$MAPBOX_TOKEN" ]; then
+            echo "MAPBOX_TOKEN secret is not set for this environment" >&2
+            exit 1
+          fi
+          flutter build web --release \
+            --dart-define=MAPBOX_TOKEN="${MAPBOX_TOKEN}" \
+            --dart-define=AUTHRESS_APPLICATION_ID="${AUTHRESS_APPLICATION_ID}" \
+            --dart-define=AUTHRESS_API_URL=https://authress.mikepattyn.nl \
+            --dart-define=AUTHRESS_REDIRECT_URL="https://${APP_HOST}/auth/callback" \
+            --dart-define=API_BASE_URL="https://${APP_HOST}/api"
+
+      - name: Publish to S3 and invalidate CloudFront
+        env:
+          DEPLOY_ENV: ${{ matrix.environment }}
+        run: |
+          SOURCE="$GITHUB_WORKSPACE/apps/gofish/mobile/build/web"
+          PREFIX="/Fish/${DEPLOY_ENV}/Frontend"
+          BUCKET=$(aws ssm get-parameter --name "${PREFIX}/WebBucket" --query 'Parameter.Value' --output text)
+          DISTRIBUTION_ID=$(aws ssm get-parameter --name "${PREFIX}/DistributionId" --query 'Parameter.Value' --output text)
+          echo "Syncing ${SOURCE} → s3://${BUCKET}/"
+          aws s3 sync "$SOURCE" "s3://${BUCKET}/" --delete
+          echo "Invalidating CloudFront distribution ${DISTRIBUTION_ID}"
+          aws cloudfront create-invalidation \
+            --distribution-id "$DISTRIBUTION_ID" \
+            --paths "/*"
+          echo "Done: Fish frontend ${DEPLOY_ENV}"

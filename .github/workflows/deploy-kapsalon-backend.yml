@@ -1,0 +1,108 @@
+name: Deploy Kapsalon backend
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'apps/kapsalon/backend/**'
+      - '.github/workflows/deploy-kapsalon-backend.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Deployment environment
+        required: true
+        default: Development
+        type: choice
+        options:
+          - Development
+          - Staging
+          - Production
+  workflow_call:
+    inputs:
+      environment:
+        description: Deployment environment
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || 'eu-central-1' }}
+
+jobs:
+  resolve-targets:
+    runs-on: ubuntu-latest
+    outputs:
+      environments: ${{ steps.resolve.outputs.environments }}
+    steps:
+      - name: Resolve deployment environments
+        id: resolve
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "${{ github.event_name }}" = "workflow_call" ]; then
+            ENVIRONMENTS='["${{ inputs.environment }}"]'
+          elif [ "${{ vars.DEPLOY_KAPSALON_BACKEND_ALL_ENVS }}" = "true" ]; then
+            ENVIRONMENTS='["Development","Staging","Production"]'
+          else
+            ENVIRONMENTS='["Development"]'
+          fi
+          echo "environments=${ENVIRONMENTS}" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: resolve-targets
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: ${{ fromJson(needs.resolve-targets.outputs.environments) }}
+    environment: ${{ matrix.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Build lambda package
+        run: |
+          OUTPUT="$GITHUB_WORKSPACE/infra/cdk/Mikepattyn.CDK/lambda/publish"
+          ZIP="$GITHUB_WORKSPACE/infra/cdk/Mikepattyn.CDK/lambda/kapsalon.zip"
+          KAPSALON="$GITHUB_WORKSPACE/apps/kapsalon"
+          rm -rf "$OUTPUT"
+          mkdir -p "$OUTPUT" "$(dirname "$ZIP")"
+          for project in \
+            "$KAPSALON/backend/Kapsalon.Shared/Kapsalon.Shared.csproj" \
+            "$KAPSALON/backend/Kapsalon.Auth/Kapsalon.Auth.csproj" \
+            "$KAPSALON/backend/Kapsalon.Identity.Api/Kapsalon.Identity.Api.csproj" \
+            "$KAPSALON/backend/Kapsalon.Scheduling.Api/Kapsalon.Scheduling.Api.csproj" \
+            "$KAPSALON/backend/Kapsalon.Tenant.Api/Kapsalon.Tenant.Api.csproj"
+          do
+            dotnet publish "$project" -c Release -o "$OUTPUT" /p:UseAppHost=false /p:GenerateRuntimeConfigurationFiles=true
+          done
+          rm -f "$ZIP"
+          (cd "$OUTPUT" && zip -r "$ZIP" .)
+          echo "Created $ZIP"
+
+      - name: Update Lambda functions
+        env:
+          DEPLOY_ENV: ${{ matrix.environment }}
+        run: |
+          ZIP="$GITHUB_WORKSPACE/infra/cdk/Mikepattyn.CDK/lambda/kapsalon.zip"
+          for function_suffix in Authorizer Scheduling-Api Identity-Api Tenant-Api; do
+            FUNCTION_NAME="Kapsalon-${function_suffix}-${DEPLOY_ENV}"
+            echo "Updating ${FUNCTION_NAME}..."
+            aws lambda update-function-code \
+              --function-name "${FUNCTION_NAME}" \
+              --zip-file "fileb://${ZIP}"
+          done
+          echo "Done: Kapsalon backend ${DEPLOY_ENV}"

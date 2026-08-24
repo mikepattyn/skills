@@ -1,0 +1,109 @@
+name: Deploy Fish backend
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'apps/gofish/backend/**'
+      - '.github/workflows/deploy-fish-backend.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Deployment environment
+        required: true
+        default: Development
+        type: choice
+        options:
+          - Development
+          - Staging
+          - Production
+  workflow_call:
+    inputs:
+      environment:
+        description: Deployment environment
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || 'eu-central-1' }}
+
+jobs:
+  resolve-targets:
+    runs-on: ubuntu-latest
+    outputs:
+      environments: ${{ steps.resolve.outputs.environments }}
+    steps:
+      - name: Resolve deployment environments
+        id: resolve
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "${{ github.event_name }}" = "workflow_call" ]; then
+            ENVIRONMENTS='["${{ inputs.environment }}"]'
+          elif [ "${{ vars.DEPLOY_FISH_BACKEND_ALL_ENVS }}" = "true" ]; then
+            ENVIRONMENTS='["Development","Staging","Production"]'
+          else
+            ENVIRONMENTS='["Development"]'
+          fi
+          echo "environments=${ENVIRONMENTS}" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: resolve-targets
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: ${{ fromJson(needs.resolve-targets.outputs.environments) }}
+    environment: ${{ matrix.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Build lambda package
+        run: |
+          OUTPUT="$GITHUB_WORKSPACE/infra/cdk/Mikepattyn.CDK/lambda/publish-fish"
+          ZIP="$GITHUB_WORKSPACE/infra/cdk/Mikepattyn.CDK/lambda/fish.zip"
+          FISH="$GITHUB_WORKSPACE/apps/gofish"
+          rm -rf "$OUTPUT"
+          mkdir -p "$OUTPUT" "$(dirname "$ZIP")"
+          for project in \
+            "$FISH/backend/src/Fish.Shared/Fish.Shared.csproj" \
+            "$FISH/backend/src/Fish.Auth/Fish.Auth.csproj" \
+            "$FISH/backend/src/Fish.Spots.Api/Fish.Spots.Api.csproj" \
+            "$FISH/backend/src/Fish.Catches.Api/Fish.Catches.Api.csproj" \
+            "$FISH/backend/src/Fish.Profile.Api/Fish.Profile.Api.csproj" \
+            "$FISH/backend/src/Fish.Community.Api/Fish.Community.Api.csproj"
+          do
+            dotnet publish "$project" -c Release -o "$OUTPUT" /p:UseAppHost=false /p:GenerateRuntimeConfigurationFiles=true
+          done
+          rm -f "$ZIP"
+          (cd "$OUTPUT" && zip -r "$ZIP" .)
+          echo "Created $ZIP"
+
+      - name: Update Lambda functions
+        env:
+          DEPLOY_ENV: ${{ matrix.environment }}
+        run: |
+          ZIP="$GITHUB_WORKSPACE/infra/cdk/Mikepattyn.CDK/lambda/fish.zip"
+          for function_suffix in Authorizer Spots-Api Catches-Api Profile-Api Community-Api; do
+            FUNCTION_NAME="Fish-${function_suffix}-${DEPLOY_ENV}"
+            echo "Updating ${FUNCTION_NAME}..."
+            aws lambda update-function-code \
+              --function-name "${FUNCTION_NAME}" \
+              --zip-file "fileb://${ZIP}"
+          done
+          echo "Done: Fish backend ${DEPLOY_ENV}"
